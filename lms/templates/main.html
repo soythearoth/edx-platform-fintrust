@@ -187,23 +187,70 @@ from common.djangoapps.pipeline_mako import render_require_js_path_overrides
     <%block name="skip_links"/>
     <a class="nav-skip sr-only sr-only-focusable" href="#main">${_("Skip to main content")}</a>
 
-    % if not disable_header:
-        <%include file="${static.get_template_path('header.html')}" args="online_help_token=online_help_token" />
-        <%include file="/preview_menu.html" />
-    % endif
+    ## sidebar
+    <div class="row">
+      <div class="custom-sidebar col-30 w-300">
+        % if not disable_header:
+          <%include file="${static.get_template_path('header.html')}" args="online_help_token=online_help_token" />
+          <%include file="/preview_menu.html" />
+        % endif
 
-    <%include file="/page_banner.html" />
+        <header>
+          <div class="outer-wrapper">
+            <div class="title">
+              <div class="heading-group">
+                % if homepage_overlay_html:
+                  ${homepage_overlay_html | n, decode.utf8}
+                % else:
+                  <%include file="index_overlay.html" />
+                % endif
+              </div>
+              % if settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
+                <div class="course-search">
+                  <form method="get" action="/courses">
+                    <label><span class="sr">${_("Search for a course")}</span>
+                      <input class="search-input" name="search_query" type="text" placeholder="${_("Search for a course")}"></input>
+                    </label>
+                    <button class="search-button" type="submit">
+                      <span class="icon fa fa-search" aria-hidden="true"></span><span class="sr">${_("Search")}</span>
+                    </button>
+                  </form>
+                </div>
+              % endif
+  
+            </div>
+  
+            <%include file="index_promo_video.html" />
+          </div>
+  
+        </header>
 
-    <div class="marketing-hero"><%block name="marketing_hero"></%block></div>
+        % if not user.is_authenticated:
+          <div class="global-header pb-300">
+            <%include file="/header/navbar-not-authenticated.html" args="online_help_token=online_help_token"/>
+          </div>
+        % endif
+  
+        % if not disable_footer:
+          <%include file="${static.get_template_path('footer.html')}" />
+        % endif
+      </div>
 
-    <div class="content-wrapper main-container" id="content" dir="${static.dir_rtl()}">
-      ${next.body()}
-      <%block name="bodyextra"/>
+      <div class="col-70 wo-300">
+        <div class="content-grid-wrapper">
+          <div class="custom-content-wrapper">
+            <%include file="/page_banner.html" />
+      
+            <div class="marketing-hero"><%block name="marketing_hero"></%block></div>
+      
+            <div class="content-wrapper main-container" id="content" dir="${static.dir_rtl()}">
+              ${next.body()}
+              <%block name="bodyextra"/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    % if not disable_footer:
-        <%include file="${static.get_template_path('footer.html')}" />
-    % endif
 
 % if not disable_window_wrap:
   </div>

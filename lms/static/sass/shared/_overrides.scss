@@ -1,0 +1,133 @@
+@import '../base/grid-settings';
+@import 'neat/neat';
+
+.row {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.col-30 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+.col-70 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+.w-300 {
+    width: 300px;
+}
+.wo-300 {
+    width: calc(100% - 300px);
+}
+header {
+    .title {
+        .heading-group {
+            h1 {
+                text-align: left;
+                margin-bottom: 0;
+                text-shadow: 0 1px rgba(255, 255, 255, 0.6);
+                text-transform: none;
+                font-size: 1em;
+            }
+            p {
+                margin-bottom: 0;
+                text-transform: none;
+                font-style: italic;
+                font-size: .6em;
+            }
+        }
+    }
+}
+
+.custom-sidebar {
+    .outer-wrapper {
+        padding: 100px 45px 50px;
+    }
+    .global-header {
+        box-shadow: unset !important;
+
+        .secondary {
+            margin: auto !important;
+            float: unset !important;
+            text-align: center;
+        }
+    }
+    .pb-300 {
+        padding-bottom: 300px;
+    }
+    .footer-about-openedx {
+        text-align: right !important;
+        width: 100% !important;
+        float: unset !important;
+        
+        img {
+            width: 150px !important;
+            margin-top: 80px;
+        }
+    }
+    .wrapper-footer {
+        box-shadow: unset !important;
+    }
+    .courses-listing-item {
+        width: 33.33% !important;
+    }
+    .wrapper-footer {
+        footer#footer-openedx {
+            .nav-legal {
+                li:not(:first-child, :nth-child(2n))::before {
+                    margin-right: ($baseline/4);
+                    content: "-";
+                }
+            }
+        }
+    }
+}
+
+.highlighted-courses {
+    margin-bottom: 0px !important;
+    padding-bottom: 40px;
+}
+.content-grid-wrapper {
+    padding-left: 50px;
+    background-color: #aaa;
+
+    .custom-content-wrapper {
+        background-color: #fff;
+
+        .content-wrapper {
+            margin: 0 auto !important;
+
+            .home {
+                .courses-container {
+                    .courses {
+                        .courses-listing {
+                            .courses-listing-item {
+                                clear: right !important;
+
+                                @include media($bp-medium) {
+                                    @include span-columns(4); // 4 of 8
+                                    @include omega(2n);
+                                }
+                        
+                                @include media($bp-large) {
+                                    @include span-columns(6); // 6 of 12
+                                    @include omega(2n);
+                                }
+                        
+                                @include media($bp-huge) {
+                                    @include span-columns(4); // 4 of 12
+                                    @include omega(3n);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

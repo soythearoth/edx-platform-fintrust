@@ -149,11 +149,6 @@
       li {
         display: inline-block;
         font-size: em(11);
-
-        &:not(:first-child)::before {
-          margin-right: ($baseline/4);
-          content: "-";
-        }
       }
     }
 
